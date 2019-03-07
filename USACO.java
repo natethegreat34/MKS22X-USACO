@@ -78,20 +78,54 @@ public static int silver(String filename){
     int rows = mashed.get(0).charAt(0);
     int cols = mashed.get(0).charAt(1);
     int time = mashed.get(0).charAt(2);
-    
+
     int startr = mashed.get(rows + 1).charAt(0);
     int startc = mashed.get(rows + 1).charAt(1);
     int endr = mashed.get(rows + 1).charAt(2);
     int endc = mashed.get(rows + 1).charAt(3);
     int [][] land = new int [rows][cols];
 
-    // make pasture
+    // make land
     for (int q = 1; q < rows - 2 ; q ++){
         for (int w = 0; w < cols ; w ++){
-            land [q][w] = mashed.get(q).charAt(w);
+            if (mashed.get(q).charAt(w) == "*"){
+            land [q][w] = -1;
         }
     }
+    land [startr][startc] = 1;
+    return helper (time, land, endr, endc, rows, cols);
 
+}
+}// 0s become ones and 1s become zeros
+public int helper (int time, int [][] land, int er, int ec, int rows, int cols){
+    if (time > 0){
+        for (int x = 0; x < rows; x ++){
+            for (int y = 0; y < cols; y ++){
+                if (land [x] [y] > 0){
+                    // v
+                    if (x + 1 < rows && land [x + 1] [y] != -1 ){
+                    land [x + 1] [y] ++;
+                    }
+                    // ^
+                    if (x -1  > 0 && land [x - 1] [y] != -1){
+                    land [x - 1] [y] ++;
+                    }
+                    // >
+                    if (y + 1 < rows && land [x] [y + 1] != -1){
+                    land [x] [y + 1] ++;
+                    }
+                    //<
+                    if (y -1  > 0 && land [x] [y - 1] != -1){
+                    land [x] [y - 1] ++;
+                    }
+                    land [x][y] = 0;
+                }
+
+                }
+        }
+        helper (time - 1, land, er, ec, rows, cols);
+    }
+    return land [er][ec];
 }
 
      //wait till number isn't higher
