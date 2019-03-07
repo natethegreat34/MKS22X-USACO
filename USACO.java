@@ -19,7 +19,6 @@ private int D_s;
      cols = potato.get(0).charAt(1);
      elevation = potato.get(0).charAt(2);
      n = potato.get(0).charAt(3);
-     int [][] cows = new int [3][3];
      int [][] pasture = new int [rows][cols];
 
      // make pasture
@@ -28,10 +27,46 @@ private int D_s;
              pasture[q][w] = potato.get(q).charAt(w);
      }
  }
+    for (int i = rows + 1; i < potato.size(); i ++){
+        stomper (potato.get(i));
+        stomping ();
+    }
 }
  public void stomper (String s){
      R_s = s.charAt(0);
      C_s = s.charAt(1);
      D_s = s.charAt(2);
+ }
+ public void stomping (){
+     if (D_s <= 0){
+         ;
+     }
+     else{
+     int max = pasture [R_s][C_s];
+     for (int x = R_s; x < R_s + 3; x ++){
+         for (int y = C_s; x < C_s + 3; y ++){
+             if (pasture [x][y] > max){
+                 max = pasture [x][y];
+             }
+     }
+ }
+ for (int x = R_s; x < R_s + 3; x ++){
+     for (int y = C_s; x < C_s + 3; y ++){
+         if (pasture [x][y] == max){
+             pasture [x][y] --;
+         }
+ }
+}
+D_s --;
+stomping ();
+}
+}
+
+     //wait till number isn't higher
+     // find max
+     //stomp
+     //check again with d_s -
+     // find max
+     // stomp
  }
 }
