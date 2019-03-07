@@ -1,16 +1,20 @@
 import java.util.*;
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 public class USACO{
-private int R_s;
-private int C_s;
-private int D_s;
  public static int bronze(String filename){
      ArrayList <String> potato = new ArrayList <String> ();
-     Scanner inf = new Scanner(text);
+     File tex = new File(filename);
+     Scanner inf = new Scanner(tex);
      while(inf.hasNextLine()){
          String line = inf.nextLine();
          potato.add(line);//hopefully you can do other things with the line
      }
-
+     int R_s;
+     int C_s;
+     int D_s;
      int rows = potato.get(0).charAt(0);
      int cols = potato.get(0).charAt(1);
      int elevation = potato.get(0).charAt(2);
@@ -25,8 +29,10 @@ private int D_s;
      }
     // cow stomping
     for (int i = rows + 1; i < potato.size(); i ++){
-        stomper (potato.get(i));
-        stomping ();
+        R_s = potato.get(i).charAt(0);
+        C_s = potato.get(i).charAt(1);
+        D_s = potato.get(i).charAt(2);
+        stomping (R_s, C_s, D_s, pasture);
     }
     // calculate volume
     int sum = 0;
@@ -38,12 +44,7 @@ private int D_s;
     // depth times area
     return sum * 36;
 }
- public void stomper (String s){
-     R_s = s.charAt(0);
-     C_s = s.charAt(1);
-     D_s = s.charAt(2);
- }
- public void stomping (){
+ public static void stomping (int R_s, int C_s, int D_s, int [][] pasture){
      if (D_s == 0){
          ;
      }
@@ -64,11 +65,12 @@ private int D_s;
  }
 }
 D_s --;
-stomping ();
+stomping (R_s, C_s, D_s, pasture);
 }
 }
 public static int silver(String filename){
     ArrayList <String> mashed = new ArrayList <String> ();
+    File text = new File(filename);
     Scanner inf = new Scanner(text);
     while(inf.hasNextLine()){
         String line = inf.nextLine();
@@ -88,7 +90,7 @@ public static int silver(String filename){
     // make land
     for (int q = 1; q < rows - 2 ; q ++){
         for (int w = 0; w < cols ; w ++){
-            if (mashed.get(q).charAt(w) == "*"){
+            if (mashed.get(q).charAt(w) == '*'){
             land [q][w] = -1;
         }
     }
@@ -97,7 +99,7 @@ public static int silver(String filename){
 
 }
 }// 0s become ones and 1s become zeros
-public int helper (int time, int [][] land, int er, int ec, int rows, int cols){
+public static int helper (int time, int [][] land, int er, int ec, int rows, int cols){
     if (time > 0){
         for (int x = 0; x < rows; x ++){
             for (int y = 0; y < cols; y ++){
