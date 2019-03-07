@@ -1,9 +1,5 @@
 import java.util.*;
 public class USACO{
-private int rows;
-private int cols;
-private int elevation;
-private int n;
 private int R_s;
 private int C_s;
 private int D_s;
@@ -15,10 +11,10 @@ private int D_s;
          potato.add(line);//hopefully you can do other things with the line
      }
 
-     rows = potato.get(0).charAt(0);
-     cols = potato.get(0).charAt(1);
-     elevation = potato.get(0).charAt(2);
-     n = potato.get(0).charAt(3);
+     int rows = potato.get(0).charAt(0);
+     int cols = potato.get(0).charAt(1);
+     int elevation = potato.get(0).charAt(2);
+     int n = potato.get(0).charAt(3);
      int [][] pasture = new int [rows][cols];
 
      // make pasture
@@ -36,7 +32,7 @@ private int D_s;
     int sum = 0;
     for (int x = 0; x < rows; x ++){
         for (int y = 0; x < cols; y ++){
-            sum =  sum + elevation - pasture [x][y]
+            sum =  sum + elevation - pasture [x][y];
         }
     }
     // depth times area
@@ -70,6 +66,32 @@ private int D_s;
 D_s --;
 stomping ();
 }
+}
+public static int silver(String filename){
+    ArrayList <String> mashed = new ArrayList <String> ();
+    Scanner inf = new Scanner(text);
+    while(inf.hasNextLine()){
+        String line = inf.nextLine();
+        mashed.add(line);//hopefully you can do other things with the line
+    }
+
+    int rows = mashed.get(0).charAt(0);
+    int cols = mashed.get(0).charAt(1);
+    int time = mashed.get(0).charAt(2);
+    
+    int startr = mashed.get(rows + 1).charAt(0);
+    int startc = mashed.get(rows + 1).charAt(1);
+    int endr = mashed.get(rows + 1).charAt(2);
+    int endc = mashed.get(rows + 1).charAt(3);
+    int [][] land = new int [rows][cols];
+
+    // make pasture
+    for (int q = 1; q < rows - 2 ; q ++){
+        for (int w = 0; w < cols ; w ++){
+            land [q][w] = mashed.get(q).charAt(w);
+        }
+    }
+
 }
 
      //wait till number isn't higher
