@@ -25,12 +25,22 @@ private int D_s;
      for (int q = 1; q < rows - 2 ; q ++){
          for (int w = 0; w < cols ; w ++){
              pasture[q][w] = potato.get(q).charAt(w);
+         }
      }
- }
+    // cow stomping
     for (int i = rows + 1; i < potato.size(); i ++){
         stomper (potato.get(i));
         stomping ();
     }
+    // calculate volume
+    int sum = 0;
+    for (int x = 0; x < rows; x ++){
+        for (int y = 0; x < cols; y ++){
+            sum =  sum + elevation - pasture [x][y]
+        }
+    }
+    // depth times area
+    return sum * 36;
 }
  public void stomper (String s){
      R_s = s.charAt(0);
@@ -38,7 +48,7 @@ private int D_s;
      D_s = s.charAt(2);
  }
  public void stomping (){
-     if (D_s <= 0){
+     if (D_s == 0){
          ;
      }
      else{
@@ -69,4 +79,3 @@ stomping ();
      // find max
      // stomp
  }
-}
