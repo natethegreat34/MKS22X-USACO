@@ -111,23 +111,42 @@ public static int silver(String filename){
     try {
         File tex = new File(filename);
         Scanner inf = new Scanner(tex);
+        // make arralist of lines of the text file
+        int i = 0;
+        int rows = 100;
         while(inf.hasNextLine()){
             String line = inf.nextLine();
-            mashed.add(line);//hopefully you can do other things with the line
+            if (i == 0 || i == rows){
+            line.split(" ", 0);
+            String [] maybe = line.split(" ", 0);
+            mashed.add(maybe);
+            rows = Integer.parseInt(mashed.get(0)[0]);
+            i ++;
+        }
+        else{
+            mashed.add(line);
         }
 
-        int rows = mashed.get(0).charAt(0);
-        int cols = mashed.get(0).charAt(1);
-        int time = mashed.get(0).charAt(2);
+            // System.out.println(Arrays.toString(maybe));
 
-        int startr = mashed.get(rows + 1).charAt(0);
-        int startc = mashed.get(rows + 1).charAt(1);
-        int endr = mashed.get(rows + 1).charAt(2);
-        int endc = mashed.get(rows + 1).charAt(3);
+        }
+        //initializing and declaring variables
+        // need a way to isolate the numbers
+        // think i have to do parseInt
+
+        // System.out.println("rows" + rows);
+        int cols = Integer.parseInt(mashed.get(0)[1]);
+         // System.out.println("cols" + cols);
+        int time = Integer.parseInt(mashed.get(0)[2]);
+         // System.out.println("elevation" + elevation);
+        int startr = Integer.parseInt(mashed.get(rows + 1)[0]);
+        int startc = Integer.parseInt(mashed.get(rows + 1)[1]);
+        int endr = Integer.parseInt(mashed.get(rows + 1)[2]);
+        int endc = Integer.parseInt(mashed.get(rows + 1)[3]);
         int [][] land = new int [rows][cols];
 
         // make land
-        for (int q = 1; q < rows - 2 ; q ++){
+        for (int q = 1; q < rows + 1 ; q ++){
             for (int w = 0; w < cols ; w ++){
                 if (mashed.get(q).charAt(w) == '*'){
                     land [q][w] = -1;
