@@ -16,42 +16,41 @@ private static int [][] pasture;
              String line = inf.nextLine();
              line.split(" ", 0);
              String [] maybe = line.split(" ", 0);
-             System.out.println(Arrays.toString(maybe));
+             // System.out.println(Arrays.toString(maybe));
              potato.add(maybe);
          }
          //initializing and declaring variables
          // need a way to isolate the numbers
          // think i have to do parseInt
          int rows = Integer.parseInt(potato.get(0)[0]);
-         System.out.println("rows" + rows);
+         // System.out.println("rows" + rows);
          int cols = Integer.parseInt(potato.get(0)[1]);
-          System.out.println("cols" + cols);
+          // System.out.println("cols" + cols);
          int elevation = Integer.parseInt(potato.get(0)[2]);
-          System.out.println("elevation" + elevation);
+          // System.out.println("elevation" + elevation);
          int n = Integer.parseInt(potato.get(0)[3]);
-          System.out.println("n" + n);
+          // System.out.println("n" + n);
          pasture = new int [rows][cols];
 
          // make pasture
          // System.out.println("cols:" + cols);
-         for (int q = 1; q < rows; q ++){
-             for (int w = 0; w < cols ; w ++){
-                // System.out.println(q);
-                //   System.out.println(w);
-                  // taking spaces and one digits at a time
-                 pasture[q][w] = Integer.parseInt(potato.get(q)[w]);
+         for (int x = 1; x < rows + 1; x ++){
+             for (int y = 0; y < cols; y ++){
+                 pasture [x - 1] [y] = Integer.parseInt(potato.get(x)[y]);
              }
+             // System.out.println("hellooo?");
          }
          // System.out.println("k");
         // cow stomping
         for (int i = rows + 1; i < potato.size(); i ++){
             int R_s = Integer.parseInt(potato.get(i)[0]) - 1;
-            System.out.println("Rs" + R_s);
+            // System.out.println("Rs" + R_s);
             int C_s = Integer.parseInt(potato.get(i)[1]) - 1;
-                        System.out.println("Cs" + C_s);
-            int D_s = Integer.parseInt(potato.get(i)[2]) - 1;
-                        System.out.println("Ds" + D_s);
-            stomping (R_s, C_s, D_s, pasture);
+                        // System.out.println("Cs" + C_s);
+            int D_s = Integer.parseInt(potato.get(i)[2]);
+                        // System.out.println("Ds" + D_s);
+
+            stomping (R_s, C_s, D_s, pasture, rows, cols);
         }
         // calculate volume
         int sum = 0;
@@ -65,15 +64,16 @@ private static int [][] pasture;
                 }
             }
         }
-        return sum * 36;
+        // System.out.println(sum);
+        return sum * 72 * 72;
      }
      catch (FileNotFoundException e){
-         System.out.println("sad");
+         // System.out.println("sad");
          return 0;
      }
 
 }
- public static void stomping (int R_s, int C_s, int D_s, int [][] pasture){
+ public static void stomping (int R_s, int C_s, int D_s, int [][] pasture, int rows, int cols){
      if (D_s == 0){
         ;
      }
@@ -94,7 +94,16 @@ private static int [][] pasture;
  }
 }
 D_s --;
-stomping (R_s, C_s, D_s, pasture);
+// String d = "";
+// for (int x = 0; x < rows; x ++){
+//     for (int y = 0; y < cols; y ++){
+//         d = d + pasture [x][y] + " ";
+//     }
+//     d = d + "\n";
+// }
+        // System.out.print(d);
+
+stomping (R_s, C_s, D_s, pasture, rows, cols);
 }
 }
 public static int silver(String filename){
