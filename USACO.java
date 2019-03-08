@@ -107,24 +107,35 @@ stomping (R_s, C_s, D_s, pasture, rows, cols);
 }
 }
 public static int silver(String filename){
-    ArrayList <String> mashed = new ArrayList <String> ();
+    ArrayList <String []> mashed = new ArrayList <String []> ();
+    ArrayList <String []> slammed = new ArrayList <String []> ();
+    ArrayList <String> tater = new ArrayList <String> ();
     try {
         File tex = new File(filename);
         Scanner inf = new Scanner(tex);
         // make arralist of lines of the text file
-        int i = 0;
+        int i = -1;
         int rows = 100;
         while(inf.hasNextLine()){
+            i++;
             String line = inf.nextLine();
-            if (i == 0 || i == rows){
+            if (i == 0){
+                System.out.println("line 1 ---");
             line.split(" ", 0);
             String [] maybe = line.split(" ", 0);
             mashed.add(maybe);
             rows = Integer.parseInt(mashed.get(0)[0]);
-            i ++;
         }
+            if (i == rows + 1){
+                System.out.println("line row + 1 ---");
+                line.split(" ", 0);
+                String [] maybe = line.split(" ", 0);
+                slammed.add(maybe);
+            }
+
         else{
-            mashed.add(line);
+            System.out.println("help");
+            tater.add(line);
         }
 
             // System.out.println(Arrays.toString(maybe));
@@ -134,21 +145,25 @@ public static int silver(String filename){
         // need a way to isolate the numbers
         // think i have to do parseInt
 
-        // System.out.println("rows" + rows);
+
         int cols = Integer.parseInt(mashed.get(0)[1]);
-         // System.out.println("cols" + cols);
+         System.out.println("cols" + cols);
         int time = Integer.parseInt(mashed.get(0)[2]);
-         // System.out.println("elevation" + elevation);
-        int startr = Integer.parseInt(mashed.get(rows + 1)[0]);
-        int startc = Integer.parseInt(mashed.get(rows + 1)[1]);
-        int endr = Integer.parseInt(mashed.get(rows + 1)[2]);
-        int endc = Integer.parseInt(mashed.get(rows + 1)[3]);
+         System.out.println("time" + time);
+        int startr = Integer.parseInt(slammed.get(0)[0]);
+                System.out.println("sr" + startr);
+        int startc = Integer.parseInt(slammed.get(0)[1]);
+                System.out.println("sc" + startc);
+        int endr = Integer.parseInt(slammed.get(0)[2]);
+                System.out.println("endr" + endr);
+        int endc = Integer.parseInt(slammed.get(0)[3]);
+                System.out.println("endc" + endc);
         int [][] land = new int [rows][cols];
 
         // make land
-        for (int q = 1; q < rows + 1 ; q ++){
+        for (int q = 0; q < rows; q ++){
             for (int w = 0; w < cols ; w ++){
-                if (mashed.get(q).charAt(w) == '*'){
+                if (tater.get(q).charAt(w) == '*'){
                     land [q][w] = -1;
                 }
             }
