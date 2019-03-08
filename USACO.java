@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class USACO{
 private static int [][] pasture;
  public static int bronze(String filename){
-     ArrayList <String> potato = new ArrayList <String> ();
+     ArrayList <String []> potato = new ArrayList <String []> ();
      try {
          // System.out.println("h");
          File tex = new File(filename);
@@ -14,32 +14,43 @@ private static int [][] pasture;
          // make arralist of lines of the text file
          while(inf.hasNextLine()){
              String line = inf.nextLine();
-             potato.add(line);
+             line.split(" ", 0);
+             String [] maybe = line.split(" ", 0);
+             System.out.println(Arrays.toString(maybe));
+             potato.add(maybe);
          }
          //initializing and declaring variables
          // need a way to isolate the numbers
-         int here = potato.get(0).nextInt();
-         int cols = potato.get(0).charAt(1);
-         int elevation = potato.get(0).charAt(2);
-         int n = potato.get(0).charAt(3);
+         // think i have to do parseInt
+         int rows = Integer.parseInt(potato.get(0)[0]);
+         System.out.println("rows" + rows);
+         int cols = Integer.parseInt(potato.get(0)[1]);
+          System.out.println("cols" + cols);
+         int elevation = Integer.parseInt(potato.get(0)[2]);
+          System.out.println("elevation" + elevation);
+         int n = Integer.parseInt(potato.get(0)[3]);
+          System.out.println("n" + n);
          pasture = new int [rows][cols];
 
          // make pasture
-         System.out.println("cols:" + cols);
+         // System.out.println("cols:" + cols);
          for (int q = 1; q < rows; q ++){
              for (int w = 0; w < cols ; w ++){
-                System.out.println(q);
-                  System.out.println(w);
+                // System.out.println(q);
+                //   System.out.println(w);
                   // taking spaces and one digits at a time
-                 pasture[q][w] = potato.get(q).nextInt(w);
+                 pasture[q][w] = Integer.parseInt(potato.get(q)[w]);
              }
          }
-         System.out.println("k");
+         // System.out.println("k");
         // cow stomping
         for (int i = rows + 1; i < potato.size(); i ++){
-            int R_s = potato.get(i).charAt(0);
-            int C_s = potato.get(i).charAt(1);
-            int D_s = potato.get(i).charAt(2);
+            int R_s = Integer.parseInt(potato.get(i)[0]) - 1;
+            System.out.println("Rs" + R_s);
+            int C_s = Integer.parseInt(potato.get(i)[1]) - 1;
+                        System.out.println("Cs" + C_s);
+            int D_s = Integer.parseInt(potato.get(i)[2]) - 1;
+                        System.out.println("Ds" + D_s);
             stomping (R_s, C_s, D_s, pasture);
         }
         // calculate volume
@@ -48,8 +59,8 @@ private static int [][] pasture;
             for (int y = 0; y < cols; y ++){
                 // sum + how deep it is
                 if (elevation - pasture [x][y] > 0){
-                    System.out.println(x);
-                    System.out.println(y);
+                    // System.out.println(x);
+                    // System.out.println(y);
                 sum =  sum + (elevation - pasture [x][y]);
                 }
             }
