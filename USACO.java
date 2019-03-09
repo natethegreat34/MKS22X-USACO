@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class USACO{
 private static int [][] pasture;
+private static int [][] land;
  public static int bronze(String filename){
      ArrayList <String []> potato = new ArrayList <String []> ();
      try {
@@ -120,21 +121,21 @@ public static int silver(String filename){
             i++;
             String line = inf.nextLine();
             if (i == 0){
-                System.out.println("line 1 ---");
+                // System.out.println("line 1 ---");
             line.split(" ", 0);
             String [] maybe = line.split(" ", 0);
             mashed.add(maybe);
             rows = Integer.parseInt(mashed.get(0)[0]);
         }
             if (i == rows + 1){
-                System.out.println("line row + 1 ---");
+                // System.out.println("line row + 1 ---");
                 line.split(" ", 0);
                 String [] maybe = line.split(" ", 0);
                 slammed.add(maybe);
             }
 
         else{
-            System.out.println("help");
+            // System.out.println("help");
             tater.add(line);
         }
 
@@ -147,18 +148,18 @@ public static int silver(String filename){
 
 
         int cols = Integer.parseInt(mashed.get(0)[1]);
-         System.out.println("cols" + cols);
+         // System.out.println("cols" + cols);
         int time = Integer.parseInt(mashed.get(0)[2]);
-         System.out.println("time" + time);
-        int startr = Integer.parseInt(slammed.get(0)[0]);
-                System.out.println("sr" + startr);
-        int startc = Integer.parseInt(slammed.get(0)[1]);
-                System.out.println("sc" + startc);
-        int endr = Integer.parseInt(slammed.get(0)[2]);
-                System.out.println("endr" + endr);
-        int endc = Integer.parseInt(slammed.get(0)[3]);
-                System.out.println("endc" + endc);
-        int [][] land = new int [rows][cols];
+         // System.out.println("time" + time);
+        int startr = Integer.parseInt(slammed.get(0)[0]) - 1;
+                // System.out.println("sr" + startr);
+        int startc = Integer.parseInt(slammed.get(0)[1])- 1;
+                // System.out.println("sc" + startc);
+        int endr = Integer.parseInt(slammed.get(0)[2])- 1;
+                // System.out.println("endr" + endr);
+        int endc = Integer.parseInt(slammed.get(0)[3])- 1;
+                // System.out.println("endc" + endc);
+        land = new int [rows][cols];
 
         // make land
         for (int q = 0; q < rows; q ++){
@@ -169,45 +170,61 @@ public static int silver(String filename){
             }
         }
         land [startr][startc] = 1;
-            return helper (time, land, endr, endc, rows, cols);
+        helper (time,rows, cols, startr, startc);
+        return land[endr][endc];
     }
     catch (FileNotFoundException e){
-        System.out.println("sad");
+        // System.out.println("sad");
         return 0;
     }
 
 }// 0s become ones and 1s become zeros
-public static int helper (int time, int [][] land, int er, int ec, int rows, int cols){
+public static void helper (int time, int rows, int cols, int startr, int startc){
+    String d = "";
+    for (int x = 0; x < rows; x ++){
+        for (int y = 0; y < cols; y ++){
+            d = d + land [x][y] + " ";
+        }
+        d = d + "\n";
+    }
+            System.out.print(d);
+            System.out.println("--------------");
     if (time > 0){
-        for (int x = 0; x < rows; x ++){
-            for (int y = 0; y < cols; y ++){
-                if (land [x] [y] > 0){
+        int x = startr;
+        int y = startc;
+                if (x >= 0 && x < rows && y >= 0 && y < cols && land [x] [y] > 0){
+                    land [x][y] --;
                     // v
                     if (x + 1 < rows && land [x + 1] [y] != -1 ){
-                    land [x + 1] [y] ++;
+                    helped(time - 1, rows, cols, x + 1, y);
+
                     }
                     // ^
                     if (x -1  > 0 && land [x - 1] [y] != -1){
-                    land [x - 1] [y] ++;
+                    helped(time - 1, rows, cols, x - 1, y);
                     }
                     // >
                     if (y + 1 < rows && land [x] [y + 1] != -1){
-                    land [x] [y + 1] ++;
+                    helped(time - 1, rows, cols, x, y + 1);
                     }
                     //<
                     if (y -1  > 0 && land [x] [y - 1] != -1){
-                    land [x] [y - 1] ++;
+                    helped(time - 1, rows, cols, x, y - 1);
                     }
-                    land [x][y] = 0;
-                }
+                    // System.out.println("maybeee");
 
+                }
+helper(time - 1,rows, cols, startr, startc);
                 }
         }
-        helper (time - 1, land, er, ec, rows, cols);
-    }
-    return land [er][ec];
+public static void helped (int time, int rows, int cols, int sr, int sc){
+
 }
 
+        // System.out.println(time);
+        // System.out.println(er + " er");
+        // System.out.println(ec + " ec");
+        // System.out.println(rows + " " + cols);
      //wait till number isn't higher
      // find max
      //stomp
