@@ -172,15 +172,15 @@ public static int silver(String filename){
                 }
             }
         }
-        String d = "";
-        for (int x = 0; x < rows; x ++){
-            for (int y = 0; y < cols; y ++){
-                d = d + land [x][y] + " ";
-            }
-            d = d + "\n";
-        }
-                System.out.print(d);
-                System.out.println("--------------");
+        // String d = "";
+        // for (int x = 0; x < rows; x ++){
+        //     for (int y = 0; y < cols; y ++){
+        //         d = d + land [x][y] + " ";
+        //     }
+        //     d = d + "\n";
+        // }
+        //         System.out.print(d);
+        //         System.out.println("--------------");
         land [startr][startc] = 1;
         helper (time,rows, cols);
         return land[endr][endc];
@@ -192,15 +192,15 @@ public static int silver(String filename){
 
 }// 0s become ones and 1s become zeros
 public static void helper (int time, int rows, int cols){
-    // String d = "";
-    // for (int x = 0; x < rows; x ++){
-    //     for (int y = 0; y < cols; y ++){
-    //         d = d + land [x][y] + " ";
-    //     }
-    //     d = d + "\n";
-    // }
-    //         System.out.print(d);
-    //         System.out.println("--------------");
+    String d = "";
+    for (int x = 0; x < rows; x ++){
+        for (int y = 0; y < cols; y ++){
+            d = d + land [x][y] + " ";
+        }
+        d = d + "\n";
+    }
+            System.out.print(d);
+            System.out.println("--------------");
     if (time > 0){
         for (int x = 0; x < rows; x ++){
             for (int y = 0; y < cols; y ++){
@@ -211,27 +211,33 @@ public static void helper (int time, int rows, int cols){
             for (int y = 0; y < cols; y ++){
                 if (x >= 0 && x < rows && y >= 0 && y < cols && dnal [x] [y] > 0){
                     int n = dnal [x][y];
-                    land [x][y] = 0;
+
+                    // System.out.println(dnal [x] [y]);
                     // v
                     if (x + 1 < rows && dnal [x + 1] [y] != -1 ){
-                        System.out.println(dnal [x + 1] [y]);
-                    land [x + 1] [y] = n + dnal [x + 1] [y];
 
+                    land [x + 1] [y] = n + land [x + 1] [y];
+                    // System.out.println("a");
                     }
                     // ^
-                    if (x -1  > 0 && land [x - 1] [y] != -1){
-                    land [x - 1] [y] = n + dnal [x - 1] [y];
+                    if (x -1  >=  0 && dnal [x - 1] [y] != -1){
+                    land [x - 1] [y] = n + land [x - 1] [y];
+                                        // System.out.println("b");
                     }
                     // >
-                    if (y + 1 < rows && land [x] [y + 1] != -1){
-                    land [x] [y + 1] = n + dnal [x] [y + 1];
+                    // System.out.println(y);
+                    // System.out.println(dnal [x] [y + 1]);
+                    if (y + 1 < cols && dnal [x] [y + 1] != -1){
+                        // System.out.println("no");
+                    land [x] [y + 1] = n + land [x] [y + 1];
                     }
                     //<
-                    if (y -1  > 0 && land [x] [y - 1] != -1){
-                        land [x] [y - 1] = n + dnal [x] [y - 1];
+                    if (y -1  >=  0 && dnal [x] [y - 1] != -1){
+                                            // System.out.println("c");
+                        land [x] [y - 1] = n + land [x] [y - 1];
                     }
                     // System.out.println("maybeee");
-
+                                        land [x][y] = 0;
                 }
             }
         }
