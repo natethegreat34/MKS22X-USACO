@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class USACO{
 private static int [][] pasture;
 private static int [][] land;
+private static int [][] dnal;
  public static int bronze(String filename){
      ArrayList <String []> potato = new ArrayList <String []> ();
      try {
@@ -115,10 +116,9 @@ public static int silver(String filename){
         File tex = new File(filename);
         Scanner inf = new Scanner(tex);
         // make arralist of lines of the text file
-        int i = -1;
+        int i = 0;
         int rows = 100;
         while(inf.hasNextLine()){
-            i++;
             String line = inf.nextLine();
             if (i == 0){
                 // System.out.println("line 1 ---");
@@ -134,10 +134,12 @@ public static int silver(String filename){
                 slammed.add(maybe);
             }
 
-        else{
+        if (i >= 1 && i < rows + 1){
             // System.out.println("help");
             tater.add(line);
         }
+        i ++;
+
 
             // System.out.println(Arrays.toString(maybe));
 
@@ -160,6 +162,7 @@ public static int silver(String filename){
         int endc = Integer.parseInt(slammed.get(0)[3])- 1;
                 // System.out.println("endc" + endc);
         land = new int [rows][cols];
+        dnal = new int [rows][cols];
 
         // make land
         for (int q = 0; q < rows; q ++){
@@ -169,8 +172,17 @@ public static int silver(String filename){
                 }
             }
         }
+        String d = "";
+        for (int x = 0; x < rows; x ++){
+            for (int y = 0; y < cols; y ++){
+                d = d + land [x][y] + " ";
+            }
+            d = d + "\n";
+        }
+                System.out.print(d);
+                System.out.println("--------------");
         land [startr][startc] = 1;
-        helper (time,rows, cols, startr, startc);
+        helper (time,rows, cols);
         return land[endr][endc];
     }
     catch (FileNotFoundException e){
@@ -179,47 +191,54 @@ public static int silver(String filename){
     }
 
 }// 0s become ones and 1s become zeros
-public static void helper (int time, int rows, int cols, int startr, int startc){
-    String d = "";
-    for (int x = 0; x < rows; x ++){
-        for (int y = 0; y < cols; y ++){
-            d = d + land [x][y] + " ";
-        }
-        d = d + "\n";
-    }
-            System.out.print(d);
-            System.out.println("--------------");
+public static void helper (int time, int rows, int cols){
+    // String d = "";
+    // for (int x = 0; x < rows; x ++){
+    //     for (int y = 0; y < cols; y ++){
+    //         d = d + land [x][y] + " ";
+    //     }
+    //     d = d + "\n";
+    // }
+    //         System.out.print(d);
+    //         System.out.println("--------------");
     if (time > 0){
-        int x = startr;
-        int y = startc;
-                if (x >= 0 && x < rows && y >= 0 && y < cols && land [x] [y] > 0){
-                    land [x][y] --;
+        for (int x = 0; x < rows; x ++){
+            for (int y = 0; y < cols; y ++){
+                dnal [x][y] = land [x][y];
+            }
+        }
+        for (int x = 0; x < rows; x ++){
+            for (int y = 0; y < cols; y ++){
+                if (x >= 0 && x < rows && y >= 0 && y < cols && dnal [x] [y] > 0){
+                    int n = dnal [x][y];
+                    land [x][y] = 0;
                     // v
-                    if (x + 1 < rows && land [x + 1] [y] != -1 ){
-                    helped(time - 1, rows, cols, x + 1, y);
+                    if (x + 1 < rows && dnal [x + 1] [y] != -1 ){
+                        System.out.println(dnal [x + 1] [y]);
+                    land [x + 1] [y] = n + dnal [x + 1] [y];
 
                     }
                     // ^
                     if (x -1  > 0 && land [x - 1] [y] != -1){
-                    helped(time - 1, rows, cols, x - 1, y);
+                    land [x - 1] [y] = n + dnal [x - 1] [y];
                     }
                     // >
                     if (y + 1 < rows && land [x] [y + 1] != -1){
-                    helped(time - 1, rows, cols, x, y + 1);
+                    land [x] [y + 1] = n + dnal [x] [y + 1];
                     }
                     //<
                     if (y -1  > 0 && land [x] [y - 1] != -1){
-                    helped(time - 1, rows, cols, x, y - 1);
+                        land [x] [y - 1] = n + dnal [x] [y - 1];
                     }
                     // System.out.println("maybeee");
 
                 }
-helper(time - 1,rows, cols, startr, startc);
+            }
+        }
+                helper(time - 1,rows, cols);
                 }
         }
-public static void helped (int time, int rows, int cols, int sr, int sc){
 
-}
 
         // System.out.println(time);
         // System.out.println(er + " er");
