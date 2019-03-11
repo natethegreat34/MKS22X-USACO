@@ -199,8 +199,8 @@ public static void helper (int time, int rows, int cols){
         }
         d = d + "\n";
     }
-            System.out.print(d);
-            System.out.println("--------------");
+            // System.out.print(d);
+            // System.out.println("--------------");
     if (time > 0){
         for (int x = 0; x < rows; x ++){
             for (int y = 0; y < cols; y ++){
